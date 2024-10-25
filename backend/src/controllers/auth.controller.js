@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
+import { generateToken } from "../utils/token.js";
 
 export const signup = async (req, res) => {
   // Get required fields from request body
@@ -8,6 +9,8 @@ export const signup = async (req, res) => {
   // validate if email exists or not
   // hash password
   // create a user database
+  // generate token
+  // save the user
   // send the response
 
   const { fullName, email, password } = req.body;
@@ -34,6 +37,20 @@ export const signup = async (req, res) => {
       fullName,
       email,
       password: hashedPassword,
+    });
+
+    if (!newUser) {
+      return res.status(400).json({ message: "Invalid user data" });
+    }
+
+    generateToken(newUser._id, res);
+    await newUser.save();
+
+    return res.status(201).json({
+      _id: newUser._id,
+      fullName: newUser.fullName,
+      email: newUser.email,
+      profilePic: newUser.profilePic,
     });
   } catch (error) {
     console.error("Error in signup controller" + error);
