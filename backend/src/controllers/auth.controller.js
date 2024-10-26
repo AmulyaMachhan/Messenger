@@ -1,4 +1,4 @@
-import User from "../models/user.model.js";
+import { User } from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import { generateToken } from "../utils/token.js";
 
@@ -58,8 +58,8 @@ export const signup = async (req, res) => {
   }
 };
 
-export const login = async((req, res) => {});
+export const login = async (req, res) => {};
 
-export const updateProfile = async((req, res) => {});
+export const updateProfile = async (req, res) => {};
 
-export const checkAuth = async((req, res) => {});
+export const checkAuth = async (req, res) => {};
