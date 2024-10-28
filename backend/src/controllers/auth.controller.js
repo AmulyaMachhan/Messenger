@@ -1,8 +1,9 @@
-import { User } from "../models/user.model.js";
 import bcrypt from "bcrypt";
+import { User } from "../models/user.model.js";
 import { generateToken } from "../utils/token.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
-export const signup = async (req, res) => {
+export const signup = asyncHandler(async (req, res) => {
   // Get required fields from request body
   // validate required fields
   // get email from user model
@@ -14,6 +15,7 @@ export const signup = async (req, res) => {
   // send the response
 
   const { fullName, email, password } = req.body;
+
   try {
     if (!fullName || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
@@ -56,10 +58,10 @@ export const signup = async (req, res) => {
     console.error("Error in signup controller" + error);
     res.status(500).json({ message: "Internal server error" });
   }
-};
+});
 
-export const login = async (req, res) => {};
+export const login = asyncHandler(async (req, res) => {});
 
-export const updateProfile = async (req, res) => {};
+export const updateProfile = asyncHandler(async (req, res) => {});
 
-export const checkAuth = async (req, res) => {};
+export const checkAuth = asyncHandler(async (req, res) => {});
