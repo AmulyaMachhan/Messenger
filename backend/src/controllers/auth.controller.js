@@ -60,7 +60,42 @@ export const signup = asyncHandler(async (req, res) => {
   }
 });
 
-export const login = asyncHandler(async (req, res) => {});
+export const login = asyncHandler(async (req, res) => {
+  //Extract fields from request body
+  const { email, password } = req.body;
+
+  //Validate fields
+  if (email === "" || password === "") {
+    return res.status(400).json({ message: "Email and password required" });
+  }
+
+  //Find if there is an existing user
+  const existingUser = await User.findOne({ email });
+
+  //Throw error if not
+  if (!existingUser) {
+    return res.status(404).json({ message: "User not registered" });
+  }
+
+  //Validate if the password is correct
+  const isPasswordValid = await bcrypt.compare(password, existingUser.password);
+
+  //Throw if incorrect password
+  if (!isPasswordValid) {
+    return res.status(401).json({ message: "Password Invalid" });
+  }
+
+  //Create Token
+  generateToken(existingUser._id, res);
+
+  // Return response
+  return res.status(200).json({
+    _id: existingUser._id,
+    email: existingUser.email,
+    fullName: existingUser.fullName,
+    profilePic: existingUser.profilePic,
+  });
+});
 
 export const updateProfile = asyncHandler(async (req, res) => {});
 
