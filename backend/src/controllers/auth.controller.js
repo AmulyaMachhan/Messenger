@@ -97,6 +97,13 @@ export const login = asyncHandler(async (req, res) => {
   });
 });
 
+export const logout = asyncHandler(async (req, res) => {
+  //Set jwt cookies age to 0;
+  res.cookie("jwt", "", { maxAge: 0 });
+
+  res.status(200).json({ message: "User successfully logged out" });
+});
+
 export const updateProfile = asyncHandler(async (req, res) => {});
 
 export const checkAuth = asyncHandler(async (req, res) => {});
