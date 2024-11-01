@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { asyncHandler } from "../utils/asyncHandler";
 import { User } from "../models/user.model";
 
-const authentication = asyncHandler(async (req, res, next) => {
+export const authenticate = asyncHandler(async (req, res, next) => {
   //Extract token from cookies using request
   //Verify if that token is of a user
   //Extract user data from the verified jwt
