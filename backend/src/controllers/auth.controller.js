@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import { User } from "../models/user.model.js";
 import { generateToken } from "../utils/token.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import cloudinary from "../utils/cloudinary.js";
 
 export const signup = asyncHandler(async (req, res) => {
   // Get required fields from request body
@@ -104,6 +105,44 @@ export const logout = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "User successfully logged out" });
 });
 
-export const updateProfile = asyncHandler(async (req, res) => {});
+export const updateProfile = asyncHandler(async (req, res) => {
+  //Extract picture file from request body
+  const { picture } = req.body;
+
+  //Validate if the picture exists
+  if (!picture) {
+    return res.status(404).json({ message: "Profile picture is required" });
+  }
+
+  //Get userId from the req
+  const userId = req.user._id;
+
+  //Upload on cloudinary and get a response
+  const response = await cloudinary.uploader.upload(picture);
+  if (!response) {
+    return res
+      .status(401)
+      .json({ message: "Error uploading profile picture on cloudinary" });
+  }
+
+  //Save the response on the user database
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    {
+      profilePic: response.secure_url,
+    },
+    {
+      new: true,
+    }
+  ).select("-passoword");
+  if (!updatedUser) {
+    return res
+      .status(401)
+      .json({ message: "Error saving profile picture on database" });
+  }
+
+  //Return an appropriate response
+  return res.status(201).json(updatedUser);
+});
 
 export const checkAuth = asyncHandler(async (req, res) => {});
