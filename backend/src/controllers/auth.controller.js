@@ -145,4 +145,6 @@ export const updateProfile = asyncHandler(async (req, res) => {
   return res.status(201).json(updatedUser);
 });
 
-export const checkAuth = asyncHandler(async (req, res) => {});
+export const checkAuth = asyncHandler(async (req, res) => {
+  return res.status(201).json(req.user);
+});
