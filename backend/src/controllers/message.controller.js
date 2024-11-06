@@ -1,6 +1,6 @@
 import { Message } from "../models/message.model.js";
 import { User } from "../models/user.model.js";
-import { getReceiverSocketId, io } from "../socket/socket.connection";
+import { getReceiverSocketId, io } from "../socket/socket.connection.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import cloudinary from "../utils/cloudinary.js";
 
