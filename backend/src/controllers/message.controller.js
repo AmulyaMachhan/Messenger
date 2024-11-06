@@ -4,6 +4,18 @@ import { getReceiverSocketId, io } from "../socket/socket.connection";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import cloudinary from "../utils/cloudinary.js";
 
+export const getUsersForSidebar = asyncHandler(async (req, res) => {
+  //Extract userId from req.user middleware
+  const loggedInUser = req.user._id;
+
+  //Find users except the given user
+  const filteredUsers = await User.find({ _id: { $ne: loggedInUser } }).select(
+    "-password"
+  );
+
+  res.status(201).json(filteredUsers);
+});
+
 export const getMessages = asyncHandler(async (req, res) => {
   //Extract senderId from middleware
   const myId = req.user._id;
