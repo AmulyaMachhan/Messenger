@@ -12,9 +12,11 @@ app.use(cookieParser());
 
 //Import routes
 import authRouter from "./routes/auth.routes.js";
+import messageRouter from "./routes/message.routes.js";
 
 //Routes declaration
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/message", messageRouter);
 
 connectDB()
   .then(() => {
