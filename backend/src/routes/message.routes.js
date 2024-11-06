@@ -8,7 +8,8 @@ import { authenticate } from "../middlewares/auth.middleware.js";
 
 const router = express.router();
 
-router.route("/send-message").post(authenticate, sendMessage);
-router.route("/get-messages").post(authenticate, getMessages);
+router.route("/send/:id").post(authenticate, sendMessage);
+router.route("/:id").post(authenticate, getMessages);
 router.route("/users").post(authenticate, getUsersForSidebar);
+
 export default router;
