@@ -6,7 +6,7 @@ import {
 } from "../controllers/message.controller.js";
 import { authenticate } from "../middlewares/auth.middleware.js";
 
-const router = express.router();
+const router = express.Router();
 
 router.route("/send/:id").post(authenticate, sendMessage);
 router.route("/:id").post(authenticate, getMessages);
