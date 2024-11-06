@@ -14,22 +14,21 @@ export const authenticate = asyncHandler(async (req, res, next) => {
   let token = req.cookies?.jwt;
 
   if (!token) {
-    res.status(400).json({ message: "Unauthorized Access" });
+    return res.status(400).json({ message: "Unauthorized Access" });
   }
 
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
-    const user = await User.findById(decodedToken.userID).select("-password");
+    const user = await User.findById(decodedToken.userId).select("-password");
 
     if (!user) {
-      res.status(401).json({ message: "User not found" });
+      return res.status(401).json({ message: "User not found" });
     }
 
     req.user = user;
     next();
   } catch (error) {
     res.status(401).json({ message: "Unauthorized access" });
-    throw new Error("Unauthorized access");
   }
 });
