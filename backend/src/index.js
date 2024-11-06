@@ -2,7 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./db/connection.js";
 import cookieParser from "cookie-parser";
-import { io, app } from "./socket/socket.connection.js";
+import { app, server } from "./socket/socket.connection.js";
 
 dotenv.config();
 
@@ -18,7 +18,7 @@ app.use("/api/v1/auth", authRouter);
 
 connectDB()
   .then(() => {
-    app.listen(process.env.PORT || 5001, () => {
+    server.listen(process.env.PORT || 5000, () => {
       console.log(`SERVER SUCCESSFULLY RUNNING ON PORT ${process.env.PORT}`);
     });
   })
