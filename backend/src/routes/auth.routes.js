@@ -18,6 +18,6 @@ router.route("/logout").get(logout);
 
 router.route("/update-profile").post(authenticate, updateProfile);
 
-router.route("/check-auth").post(authenticate, checkAuth);
+router.route("/check-auth").get(authenticate, checkAuth);
 
 export default router;
