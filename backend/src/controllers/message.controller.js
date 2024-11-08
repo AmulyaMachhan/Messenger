@@ -42,6 +42,11 @@ export const sendMessage = asyncHandler(async (req, res) => {
   //Extract text and image from request body
   const { text, image } = req.body;
 
+  //Validate text
+  if (!text) {
+    return res.status(404).json({ message: "No message body sent" });
+  }
+
   //Get receiver id from request parameters
   const { id: receiverId } = req.params;
 
