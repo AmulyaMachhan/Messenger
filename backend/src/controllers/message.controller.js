@@ -22,9 +22,10 @@ export const getMessages = asyncHandler(async (req, res) => {
 
   //Get receiverId
   const { id: chatByUserId } = req.params;
-
+  console.log(chatByUserId);
+  console.log(myId);
   //Find messages for that particular sender and receiverId
-  const messages = await User.find({
+  const messages = await Message.find({
     $or: [
       { senderId: myId, receiverId: chatByUserId },
       { senderId: chatByUserId, receiverId: myId },
