@@ -22,8 +22,10 @@ export const getMessages = asyncHandler(async (req, res) => {
 
   //Get receiverId
   const { id: chatByUserId } = req.params;
-  console.log(chatByUserId);
-  console.log(myId);
+
+  if (!chatByUserId) {
+    return res.status(404).json({ message: "Receiver Id not found" });
+  }
   //Find messages for that particular sender and receiverId
   const messages = await Message.find({
     $or: [
