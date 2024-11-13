@@ -35,4 +35,19 @@ export const useAuthStore = create((set, get) => ({
       set({ isSigningUp: false });
     }
   },
+
+  login: async (data) => {
+    set({ isLogginIn: true });
+    try {
+      const res = await api.post("/auth/login", data);
+      set({ authUser: res.data });
+      toast.success("Successfully Logged In");
+    } catch (error) {
+      console.log("Error while registering a user " + error);
+      toast.error(error.response.data.message);
+      set({ authUser: null });
+    } finally {
+      set({ isLogginIn: false });
+    }
+  },
 }));
