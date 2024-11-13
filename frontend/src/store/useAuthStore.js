@@ -50,4 +50,15 @@ export const useAuthStore = create((set, get) => ({
       set({ isLogginIn: false });
     }
   },
+
+  logout: async () => {
+    try {
+      await api.get("/auth/logout");
+      set({ authUser: null });
+      toast.success("Logged Out Successfully");
+    } catch (error) {
+      console.error("Error while logging out");
+      toast.error(error.response.data.message);
+    }
+  },
 }));
