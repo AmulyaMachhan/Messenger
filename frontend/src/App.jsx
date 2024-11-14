@@ -1,9 +1,10 @@
 import Navbar from "./components/skeletons/Navbar";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import SignUpPage from "./pages/SignUpPage";
 import { useAuthStore } from "./store/useAuthStore";
 import { useEffect } from "react";
+import LoginPage from "./pages/LoginPage";
 
 function App() {
   const { authUser, checkAuth } = useAuthStore();
@@ -16,8 +17,18 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={authUser ? <HomePage /> : <SignUpPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
+        <Route
+          path="/"
+          element={authUser ? <HomePage /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/login"
+          element={!authUser ? <LoginPage /> : <Navigate to="/" />}
+        />
+        <Route
+          path="/signup"
+          element={!authUser ? <SignUpPage /> : <Navigate to="/" />}
+        />
       </Routes>
     </>
   );
