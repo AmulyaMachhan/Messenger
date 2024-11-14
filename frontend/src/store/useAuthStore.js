@@ -14,7 +14,7 @@ export const useAuthStore = create((set, get) => ({
       const res = await api.get("auth/check-auth");
       set({ authUser: res.data });
     } catch (error) {
-      console.error("Error while checking user authentication " + error);
+      console.error(error.response.data.message);
       set({ authUser: null });
     } finally {
       set({ isCheckingAuth: false });
