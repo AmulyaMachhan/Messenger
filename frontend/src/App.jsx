@@ -5,6 +5,7 @@ import SignUpPage from "./pages/SignUpPage";
 import { useAuthStore } from "./store/useAuthStore";
 import { useEffect } from "react";
 import LoginPage from "./pages/LoginPage";
+import SettingsPage from "./pages/SettingsPage";
 
 function App() {
   const { authUser, checkAuth } = useAuthStore();
@@ -29,6 +30,7 @@ function App() {
           path="/signup"
           element={!authUser ? <SignUpPage /> : <Navigate to="/" />}
         />
+        <Route path="/settings" element={<SettingsPage />} />
       </Routes>
     </>
   );
