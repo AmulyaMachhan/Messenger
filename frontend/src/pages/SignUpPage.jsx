@@ -10,6 +10,7 @@ import {
   User,
 } from "lucide-react";
 import { Link } from "react-router";
+import AuthImagePattern from "../components/skeletons/AuthImagePattern";
 
 function SignUpPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -144,6 +145,12 @@ function SignUpPage() {
           </div>
         </div>
       </div>
+
+      {/* right side */}
+      <AuthImagePattern
+        title="Join our community"
+        subtitle="Connect with friends, share moments, and stay in touch with your loved ones."
+      />
     </div>
   );
 }
