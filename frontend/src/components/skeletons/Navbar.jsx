@@ -10,12 +10,12 @@ function Navbar() {
   return (
     <div className="flex flex-end">
       <div className="flex items-center gap-4">
-        {!authUser ? (
+        {authUser && (
           <div>
             <button onClick={() => handleClick()}>Logout</button>
+
+            <Link to="/profile">Profile</Link>
           </div>
-        ) : (
-          <Link to="/profile">Profile</Link>
         )}
       </div>
     </div>
