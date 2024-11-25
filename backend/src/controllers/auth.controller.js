@@ -118,7 +118,9 @@ export const updateProfile = asyncHandler(async (req, res) => {
   const userId = req.user._id;
 
   //Upload on cloudinary and get a response
-  const response = await cloudinary.uploader.upload(picture);
+  const response = await cloudinary.uploader.upload(picture, {
+    folder: "profile_pictures",
+  });
   if (!response) {
     return res
       .status(401)
