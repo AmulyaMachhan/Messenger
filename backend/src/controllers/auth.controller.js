@@ -120,6 +120,7 @@ export const updateProfile = asyncHandler(async (req, res) => {
   //Upload on cloudinary and get a response
   const response = await cloudinary.uploader.upload(picture, {
     folder: "profile_pictures",
+    format: "jpg",
   });
   if (!response) {
     return res
