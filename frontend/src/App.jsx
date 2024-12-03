@@ -7,6 +7,7 @@ import Navbar from "./components/skeletons/Navbar";
 
 import { useEffect } from "react";
 import { useAuthStore } from "./store/useAuthStore";
+import { useThemeStore } from "./store/useThemeStore";
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import { Toaster } from "react-hot-toast";
@@ -14,7 +15,7 @@ import { Loader } from "lucide-react";
 
 function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
-
+  const { theme } = useThemeStore();
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
@@ -28,7 +29,7 @@ function App() {
   }
 
   return (
-    <>
+    <div data-theme={theme}>
       <Navbar />
 
       <Routes>
@@ -52,7 +53,7 @@ function App() {
       </Routes>
 
       <Toaster />
-    </>
+    </div>
   );
 }
 
